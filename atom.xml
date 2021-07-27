@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-07-27T07:47:37.797Z</updated>
+  <updated>2021-07-27T08:33:29.582Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,15 +21,15 @@
     <link href="http://example.com/2021/07/23/%E5%BC%80%E5%A4%A7%E7%AC%AC%E4%B8%89%E5%91%A8%E8%AE%B0%E5%BD%95/"/>
     <id>http://example.com/2021/07/23/%E5%BC%80%E5%A4%A7%E7%AC%AC%E4%B8%89%E5%91%A8%E8%AE%B0%E5%BD%95/</id>
     <published>2021-07-23T06:05:25.851Z</published>
-    <updated>2021-07-27T07:47:37.797Z</updated>
+    <updated>2021-07-27T08:33:29.582Z</updated>
     
-    <content type="html"><![CDATA[<p>本周学习内容有：</p><h4 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h4><p>对象的拷贝与合并（深？浅？）</p><h4 id="问题：查询数据库中数据但显示为null"><a href="#问题：查询数据库中数据但显示为null" class="headerlink" title="问题：查询数据库中数据但显示为null"></a>问题：查询数据库中数据但显示为null</h4><p>表中存在所查询数据，但查询字段返回为null，原因在于：<br>数据库中的字段名为使用下划线连接，所以对应的实体类应该是驼峰命名方式，但实际类中采用的下划线连接，所以映射不到。<br>解决方法：1. 修改map-underscore-to-camel-case: false   2. 或者将实体类命名改为驼峰方式<br>按道理应该可以解决，但实验后未成功<br>最终修改了表名</p><h4 id="vue前端查看日志"><a href="#vue前端查看日志" class="headerlink" title="vue前端查看日志"></a>vue前端查看日志</h4><p>用Google Chrome来运行，找到开发者模式，可以查看<br>window.console.log(要查看内容)</p><h3 id="至此，已经可以实现"><a href="#至此，已经可以实现" class="headerlink" title="至此，已经可以实现"></a>至此，已经可以实现</h3><h4 id="1-修改前端界面，并将数据传递给后端并保存到数据库"><a href="#1-修改前端界面，并将数据传递给后端并保存到数据库" class="headerlink" title="(1) 修改前端界面，并将数据传递给后端并保存到数据库"></a>(1) 修改前端界面，并将数据传递给后端并保存到数据库</h4><h4 id="2-根据条件查询后台，并返回给前端显示（但目前仅限已知的一条记录）"><a href="#2-根据条件查询后台，并返回给前端显示（但目前仅限已知的一条记录）" class="headerlink" title="(2) 根据条件查询后台，并返回给前端显示（但目前仅限已知的一条记录）"></a>(2) 根据条件查询后台，并返回给前端显示（但目前仅限已知的一条记录）</h4>]]></content>
+    <content type="html"><![CDATA[<p>本周学习内容有：</p><h3 id="知识点及问题整理"><a href="#知识点及问题整理" class="headerlink" title="知识点及问题整理"></a>知识点及问题整理</h3><p><strong>(1) Object.assign()</strong><br>对象的拷贝与合并（深？浅？）<br><strong>(2) 问题：表中存在所查询数据，但查询字段返回为null</strong><br>原因在于：数据库中的字段名为使用下划线连接，所以对应的实体类应该是驼峰命名方式，但实际类中采用的下划线连接，所以queryWrapper映射不到。<br>解决方法：1. 修改map-underscore-to-camel-case: false   2. 或者将实体类命名改为驼峰方式<br>按道理应该可以解决,且确实解决了查询为null的问题。<br>最终解决：修改了数据库表的列名<br><strong>(3) vue前端查看日志</strong><br>用Google Chrome来运行，找到开发者模式，可以查看<br>window.console.log(要查看内容)<br><strong>(4) baseMapper.selectOne(queryWrapper)的使用</strong><br>前提：已知只有一条记录才可以使用<br><strong>(5) queryWrapper的代码使用(在第一周记录里已有简单介绍)</strong></p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public Message demand(MessageParam MsgParam)&#123;</span><br><span class="line">        QueryWrapper&lt;Message&gt; queryWrapper = new QueryWrapper&lt;&gt;();</span><br><span class="line">        System.out.println(MsgParam);</span><br><span class="line">        if (ObjectUtil.isNotNull(MsgParam)) &#123;</span><br><span class="line">            // 根据名称 查询</span><br><span class="line">            if (ObjectUtil.isNotEmpty(MsgParam.getName())) &#123;</span><br><span class="line">                queryWrapper.lambda().eq(Message::getName, MsgParam.getName());</span><br><span class="line">            &#125;</span><br><span class="line">            // 根据年龄 查询</span><br><span class="line">            if (ObjectUtil.isNotEmpty(MsgParam.getAge())) &#123;</span><br><span class="line">                queryWrapper.lambda().eq(Message::getAge, MsgParam.getAge());</span><br><span class="line">            &#125;</span><br><span class="line">            // 根据地址模糊 查询</span><br><span class="line">            if (ObjectUtil.isNotEmpty(MsgParam.getAddress())) &#123;</span><br><span class="line">                queryWrapper.lambda().like(Message::getAddress, MsgParam.getAddress());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //使用selectOne的前提是：已经知道只有一条记录的前提</span><br><span class="line">        Message msg = baseMapper.selectOne(queryWrapper);</span><br><span class="line">        System.out.println(msg);</span><br><span class="line">        return msg;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure><h3 id="至此，已经可以实现"><a href="#至此，已经可以实现" class="headerlink" title="至此，已经可以实现"></a>至此，已经可以实现</h3><p><strong>(1) 修改前端界面，并将数据传递给后端并保存到数据库</strong><br><strong>(2) 根据条件查询后台，并返回给前端显示(但目前仅限已知的一条记录)</strong></p>]]></content>
     
     
       
       
     <summary type="html">&lt;p&gt;本周学习内容有：&lt;/p&gt;
-&lt;h4 id=&quot;Object-assign&quot;&gt;&lt;a href=&quot;#Object-assign&quot; class=&quot;headerlink&quot; title=&quot;Object.assign()&quot;&gt;&lt;/a&gt;Object.assign()&lt;/h4&gt;&lt;p&gt;对象的拷贝与</summary>
+&lt;h3 id=&quot;知识点及问题整理&quot;&gt;&lt;a href=&quot;#知识点及问题整理&quot; class=&quot;headerlink&quot; title=&quot;知识点及问题整理&quot;&gt;&lt;/a&gt;知识点及问题整理&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;(1) Object.assign()&lt;/s</summary>
       
     
     
@@ -86,7 +86,7 @@
     <published>2021-07-20T04:21:00.637Z</published>
     <updated>2021-07-22T02:59:15.755Z</updated>
     
-    <content type="html"><![CDATA[<p><strong>个人信息</strong></p><table><thead><tr><th><img width=200/></th><th><img width=200/></th><th><img width=200/></th></tr></thead><tbody><tr><td>姓名：Xander</td><td>性别：男</td><td>民族：汉</td></tr><tr><td>籍贯：山东烟台</td><td>居住地：上海</td><td>年龄：26</td></tr><tr><td>手机：176****5045</td><td>邮箱：<a href="mailto:&#x79;&#x7a;&#104;&#97;&#110;&#103;&#119;&#104;&#64;&#x31;&#x32;&#54;&#x2e;&#x63;&#111;&#x6d;">&#x79;&#x7a;&#104;&#97;&#110;&#103;&#119;&#104;&#64;&#x31;&#x32;&#54;&#x2e;&#x63;&#111;&#x6d;</a></td><td></td></tr></tbody></table><p><strong>教育背景</strong></p><p><strong>项目经历</strong></p>]]></content>
+    <content type="html"><![CDATA[<p><strong>个人信息</strong></p><table><thead><tr><th><img width=200/></th><th><img width=200/></th><th><img width=200/></th></tr></thead><tbody><tr><td>姓名：Xander</td><td>性别：男</td><td>民族：汉</td></tr><tr><td>籍贯：山东烟台</td><td>居住地：上海</td><td>年龄：26</td></tr><tr><td>手机：176****5045</td><td>邮箱：<a href="mailto:&#x79;&#122;&#x68;&#97;&#x6e;&#103;&#119;&#x68;&#x40;&#x31;&#50;&#54;&#x2e;&#99;&#111;&#x6d;">&#x79;&#122;&#x68;&#97;&#x6e;&#103;&#119;&#x68;&#x40;&#x31;&#50;&#54;&#x2e;&#99;&#111;&#x6d;</a></td><td></td></tr></tbody></table><p><strong>教育背景</strong></p><p><strong>项目经历</strong></p>]]></content>
     
     
       
