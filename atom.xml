@@ -37,6 +37,27 @@
   </entry>
   
   <entry>
+    <title>量化交易系统学习</title>
+    <link href="http://example.com/2021/07/22/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://example.com/2021/07/22/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/</id>
+    <published>2021-07-22T02:40:05.480Z</published>
+    <updated>2021-09-17T04:58:22.493Z</updated>
+    
+    <content type="html"><![CDATA[<p>用于记录过程思路、遇到的问题和解决方法、相关知识点（杂、待整理）</p><h4 id="思考：数据准备、全端架构构建（python微服务、MacOS前端待定）"><a href="#思考：数据准备、全端架构构建（python微服务、MacOS前端待定）" class="headerlink" title="思考：数据准备、全端架构构建（python微服务、MacOS前端待定）"></a>思考：数据准备、全端架构构建（python微服务、MacOS前端待定）</h4><p>先做数据准备，有了基本数据后，思考整体的框架，做一个简单框架的搭建与实现，由后台将数据传输给前端。细节后续一步步落实。</p><h5 id="数据准备："><a href="#数据准备：" class="headerlink" title="数据准备："></a>数据准备：</h5><p>Python连接本地MySQL数据库<br>VS Code中import一个模块提示：Import “MySQLdb” could not be resolved from source<br>解决步骤：<br>安装MySQLdb，但是仍然有错。<br>python2 对应的模块是 MySQLdb, MySQLdb 不支持python3;<br>python3对应的模块是pymysql，所以下载pymysql即可：pip3 install pymysql;<br>pymysql.connect()使用时报错：takes 1 positional argument but 5 were given<br>解决方法：<br>带上参数名称：db = pymysql.connect(host=”localhost”, user=”root”, password=”xxx”, database=”xxxx”)<br>python读取配置文件<br>数据库dao层封装<br>With、__enter__、__exit__的使用<br>写日志，实时查看日志<br>实时查看：tail -f  “日志”<br>Mac版Jupyter下载安装</p><p>使用spring cloud，在idea中配置python环境，缺包的话project structure中自行下载<br>Flask本地测试Python</p><p>Spring cloud java和python互相调用已经成功</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;用于记录过程思路、遇到的问题和解决方法、相关知识点（杂、待整理）&lt;/p&gt;
+&lt;h4 id=&quot;思考：数据准备、全端架构构建（python微服务、MacOS前端待定）&quot;&gt;&lt;a href=&quot;#思考：数据准备、全端架构构建（python微服务、MacOS前端待定）&quot; class=&quot;h</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>实习记录</title>
     <link href="http://example.com/2021/07/20/%E5%AE%9E%E4%B9%A0%E5%91%A8%E8%AE%B0%E5%BD%95/"/>
     <id>http://example.com/2021/07/20/%E5%AE%9E%E4%B9%A0%E5%91%A8%E8%AE%B0%E5%BD%95/</id>
